@@ -18,13 +18,13 @@ namespace top {
     p_t right_top;
   };
   bool operator==(p_t a, p_t b) {
-    return a.x == b.y;
+    return a.x == b.x && a.y == b.y;
   }
   bool operator!=(p_t a, p_t b) {
     return !(a == b);
   }
-  void make_f(Idrow ** b, size_t k);
-  void get_points(Idrow * b, p_t ** ps, size_t & s);
+  void make_f(Idraw ** b, size_t k);
+  void get_points(Idraw * b, p_t ** ps, size_t & s);
   frame_t build_frame(const p_t ps, size_t s);
   char * build_canvas(frame_t f);
   void paint_canvas(char * cnv, frame_t fr, const p_t * ps, size_t k, char f);
@@ -32,7 +32,7 @@ namespace top {
 }
 top::Dot::Dot(int x, int y) :
   Idraw(),
-  {x, y}
+  o{x, y}
 {}
 top::p_t top::Dot::begin() const{
   return o;
@@ -43,7 +43,7 @@ top::p_t top::Dot::next(p_t) const {
 int main()
 {
   using namespace top;
-  Ideaw * f[3] = {};
+  Idraw * f[3] = {};
   p_t * p = nullptr;
   size_t s = 0;
   char * cnv = nullptr;
@@ -53,7 +53,7 @@ int main()
     for (size_t i= 0; i < 3; ++i) {
       get_points(f[i], & p, s);
     }
-    frame_t fr = duild_frame(p, s);
+    frame_t fr = build_frame(p, s);
     cnv = build_canvas(fr);
     paint_canvas(cnv, fr, p, s, '#');
     print_canvas(cnv, fr);
