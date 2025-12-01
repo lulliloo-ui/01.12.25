@@ -25,7 +25,7 @@ namespace top {
   }
   void make_f(Idraw ** b, size_t k);
   void get_points(Idraw * b, p_t ** ps, size_t & s);
-  frame_t build_frame(const p_t ps, size_t s);
+  frame_t build_frame(const p_t * ps, size_t s);
   char * build_canvas(frame_t f);
   void paint_canvas(char * cnv, frame_t fr, const p_t * ps, size_t k, char f);
   void print_canvas(const char * cnv, frame_t fr);
