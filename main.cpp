@@ -64,6 +64,6 @@ int main()
   delete f[1];
   delete f[2];
   delete[] p;
-  delete[]  cnv;
+  delete[] cnv;
   return err;
 }
