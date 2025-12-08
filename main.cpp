@@ -87,3 +87,19 @@ size_t top::get_points(const Idraw& d, p_t ** pts, size_t s) {
   }
   return delta;
 }
+top::f_t top::frame(const p_t* pts, size_t s) {
+  if (!s) {
+    throw std:::logic_error("bad size");
+  }
+  int minx = pts[0].x, maxx = minx;
+  int miny = pts[0].y, maxy = miny;
+  for (size_t i = 1; i < s; ++i) {
+    minx = std::min(minx, pts[i].x);
+    maxx = std::max(maxx, pts[i].x);
+    miny = std::min(miny, pts[i].x);
+    maxy = std::max(maxy, pts[i].x);
+  }
+  p_t aa{minx, miny};
+  p_t bb{maxx, maxy};
+  return {aa, bb};
+}
