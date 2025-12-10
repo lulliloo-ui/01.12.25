@@ -17,11 +17,18 @@ namespace top {
     Dot(int x, int y);
   };
   struct Vline: Idraw {
-    Vline(p_t ytop, p_t ybot);
+    Vline(p_t y1, p_t y2);
     p_t begin() const override;
     p_t next(p_t) const override;
     p_t ytop;
     p_t ybot;
+  };
+  struct Hline: Idraw {
+    Hline(p_t x1, p_t x2);
+    p_t begin() const override;
+    p_t next(p_t) const override;
+    p_t xleft;
+    p_t xright;
   };
   struct f_t {
     p_t aa;
@@ -52,8 +59,8 @@ top::p_t top::Dot::begin() const{
 top::p_t top::Dot::next(p_t) const {
   return begin();
 }
-top::Vline::Vline(p_t ytop_, p_t ybot_) :
-  ytop{ytop_}, ybot{ybot_}
+top::Vline::Vline(p_t y1, p_t y2) :
+  ytop{y1.y > y2.y ? y1 : y2}, ybot{y2.y >= y1.y ? y2 : y1}
 {}
 top::p_t top::Vline::begin() const {
   return ybot;
@@ -61,6 +68,19 @@ top::p_t top::Vline::begin() const {
 top::p_t top::Vline::next(p_t a) const {
   a.y++;
   if (a.y > ytop.y) {
+    return begin();
+  }
+  return a;
+}
+top::Hline::Hline(p_t x1, p_t x2) :
+  xleft{x1.x > x2.x ? x2 : x1}, xright{x2.x >= x1.x ? x1 : x2}
+{}
+top::p_t top::Hline::begin() const {
+  return xleft;
+}
+top::p_t top::Hline::next(p_t a) const {
+  a.x++;
+  if (a.x > xright.x) {
     return begin();
   }
   return a;
