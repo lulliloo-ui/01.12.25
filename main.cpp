@@ -73,7 +73,7 @@ top::p_t top::Vline::next(p_t a) const {
   return a;
 }
 top::Hline::Hline(p_t x1, p_t x2) :
-  xleft{x1.x > x2.x ? x2 : x1}, xright{x2.x >= x1.x ? x1 : x2}
+  xleft{x1.x > x2.x ? x2 : x1}, xright{x1.x > x2.x ? x1 : x2}
 {}
 top::p_t top::Hline::begin() const {
   return xleft;
