@@ -86,9 +86,10 @@ size_t top::get_points(const Idraw& d, p_t ** pts, size_t s) {
   return delta;
 }
 void top::make_f(Idraw ** b, size_t k) {
-  b[0] = new Dot(4, 6);
-  b[1] = new Dot(0, 0);
-  b[2] = new Dot(-2, -5);
+  b[0] = new Vline({3, 8}, {3, 1});
+  b[1] = new Dot(10, 10);
+  b[2] = new Dot(-1, -1);
+//  b[2] = new Dot(-2, -5);
 }
 top::f_t top::frame(const p_t* pts, size_t s) {
   if (!s) {
