@@ -17,18 +17,18 @@ namespace top {
     Dot(int x, int y);
   };
   struct Vline: Idraw {
-    Vline(p_t y1, p_t y2);
+    Vline(p_t y, int size);
     p_t begin() const override;
     p_t next(p_t) const override;
-    p_t ytop;
+    int size;
     p_t ybot;
   };
   struct Hline: Idraw {
-    Hline(p_t x1, p_t x2);
+    Hline(p_t x, int size);
     p_t begin() const override;
     p_t next(p_t) const override;
     p_t xleft;
-    p_t xright;
+    int size;
   };
   struct Line45: Idraw {
     Line45(p_t left_bot, int size);
@@ -66,28 +66,28 @@ top::p_t top::Dot::begin() const{
 top::p_t top::Dot::next(p_t) const {
   return begin();
 }
-top::Vline::Vline(p_t y1, p_t y2) :
-  ytop{y1.y > y2.y ? y1 : y2}, ybot{y1.y > y2.y ? y2 : y1}
+top::Vline::Vline(p_t y, int size) :
+  ybot{y}, size{size}
 {}
 top::p_t top::Vline::begin() const {
   return ybot;
 }
 top::p_t top::Vline::next(p_t a) const {
   a.y++;
-  if (a.y > ytop.y) {
+  if (a.y - begin().y > size) {
     return begin();
   }
   return a;
 }
-top::Hline::Hline(p_t x1, p_t x2) :
-  xleft{x1.x > x2.x ? x2 : x1}, xright{x1.x > x2.x ? x1 : x2}
+top::Hline::Hline(p_t x, int size) :
+  xleft{x}, size{size}
 {}
 top::p_t top::Hline::begin() const {
   return xleft;
 }
 top::p_t top::Hline::next(p_t a) const {
   a.x++;
-  if (a.x > xright.x) {
+  if (a.x - begin().x > size) {
     return begin();
   }
   return a;
@@ -127,7 +127,7 @@ size_t top::get_points(const Idraw& d, p_t ** pts, size_t s) {
   return delta;
 }
 void top::make_f(Idraw ** b, size_t k) {
-  b[0] = new Vline({3, 8}, {3, 1});
+  b[0] = new Hline({1, 1}, 5);
   b[1] = new Dot(10, 10);
   b[2] = new Dot(-1, -1);
 //  b[2] = new Dot(-2, -5);
