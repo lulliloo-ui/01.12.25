@@ -30,6 +30,13 @@ namespace top {
     p_t xleft;
     p_t xright;
   };
+  struct Line45: Idraw {
+    Line45(p_t left_bot, int size);
+    p_t begin() const override;
+    p_t next(p_t) const override;
+    p_t left_bot;
+    int size;
+  };
   struct f_t {
     p_t aa;
     p_t bb;
@@ -81,6 +88,20 @@ top::p_t top::Hline::begin() const {
 top::p_t top::Hline::next(p_t a) const {
   a.x++;
   if (a.x > xright.x) {
+    return begin();
+  }
+  return a;
+}
+top::Line45::Line45(p_t left_bot, int size) :
+  left_bot{left_bot}, size{size}
+{}
+top::p_t top::Line45::begin() const {
+  return left_bot;
+}
+top::p_t top::Line45::next(p_t a) const {
+  a.x++;
+  a.y++;
+  if (a.x - begin().x > size) {
     return begin();
   }
   return a;
