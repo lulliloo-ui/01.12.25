@@ -16,6 +16,13 @@ namespace top {
     p_t o;
     Dot(int x, int y);
   };
+  struct Vline: Idraw {
+    Vline(p_t ytop, p_t ybot);
+    p_t begin() const override;
+    p_t next(p_t) const override;
+    p_t ytop;
+    p_t ybot;
+  };
   struct f_t {
     p_t aa;
     p_t bb;
@@ -44,6 +51,19 @@ top::p_t top::Dot::begin() const{
 }
 top::p_t top::Dot::next(p_t) const {
   return begin();
+}
+top::Vline::Vline(p_t ytop_, p_t ybot_) :
+  ytop{ytop_}, ybot{ybot_}
+{}
+top::p_t top::Vline::begin() const {
+  return ybot;
+}
+top::p_t top::Vline::next(p_t a) const {
+  a.y++;
+  if (a.y > ytop.y) {
+    return begin();
+  }
+  return a;
 }
 void extend(top::p_t** pts, size_t s, top::p_t p) {
   top::p_t * res = new top::p_t[s+1];
