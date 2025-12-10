@@ -60,7 +60,7 @@ top::p_t top::Dot::next(p_t) const {
   return begin();
 }
 top::Vline::Vline(p_t y1, p_t y2) :
-  ytop{y1.y > y2.y ? y1 : y2}, ybot{y2.y >= y1.y ? y2 : y1}
+  ytop{y1.y > y2.y ? y1 : y2}, ybot{y1.y > y2.y ? y2 : y1}
 {}
 top::p_t top::Vline::begin() const {
   return ybot;
