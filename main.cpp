@@ -37,6 +37,13 @@ namespace top {
     p_t left_bot;
     int size;
   };
+  struct Square: Idraw {
+    Square(p_t left_bot, int length);
+    p_t begin() const override;
+    p_t next(p_t) const override;
+    p_t left_bot;
+    int length;
+  };
   struct f_t {
     p_t aa;
     p_t bb;
@@ -103,6 +110,38 @@ top::p_t top::Line45::next(p_t a) const {
   a.y++;
   if (a.x - begin().x > size) {
     return begin();
+  }
+  return a;
+}
+top::Square::Square(p_t left_bot, int length) :
+  left_bot{left_bot}, length{length}
+{}
+top::p_t top::Square::begin() const {
+  return left_bot;
+}
+top::p_t top::Square::next(p_t a) const {
+  if (a.y - begin().y < length) {
+    if (a.x == begin().x) {
+      a.y++;
+      return a;
+    }
+    if (a.x == begin().x + length && a.y != begin().y) {
+      a.y--;
+      return a;
+    }
+    if (a.y == begin().y && a.x != begin().x) {
+      a.x--;
+      return a;
+    }
+    return begin();
+  }
+  if (a.y == length + begin().y) {
+    if (a.x - begin().x < length) {
+      a.x++;
+      return a;
+    }
+    a.y--;
+    return a;
   }
   return a;
 }
