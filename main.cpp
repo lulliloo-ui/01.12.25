@@ -6,7 +6,7 @@ namespace top {
   void make_f(Idraw ** b, size_t k);
 }
 void top::make_f(Idraw ** b, size_t k) {
-  b[0] = new Square({1, 1}, 7);
+  b[0] = new Rectangle({1, 1}, 4, 3);
   b[1] = new Dot(10, 10);
   b[2] = new Dot(-1, -1);
 //  b[2] = new Dot(-2, -5);
